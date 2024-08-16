@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Body
-from ..models.user import User
+from ..models.user_shema import User
 
 user_route = APIRouter()
 
