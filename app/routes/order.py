@@ -1,24 +1,29 @@
 from fastapi import APIRouter, Body
-from ..models.order_schema import PurchaseOrder, ItemOrder
+from ..models.order_schema import PurchaseOrder
 
-user_route = APIRouter()
+order_route = APIRouter()
 
-@user_route.post("/")
-def create_users(user: User = Body(...)):
+    
+@order_route.get("/")
+def read_orders():
+    return [{"ordername": "john"}, {"ordername": "alice"}]
+
+@order_route.get("/{id}#{order_code}")
+def read_order(id: str, order_code: str):
+    return {"id": id, "order_code": order_code}
+
+@order_route.post("/")
+def create_orders(order: PurchaseOrder = Body(...)):
     try:
-        return user
+        return order
     except Exception as e:
         print(e)
         return {"error:":str(e)}
-    
-@user_route.get("/")
-def read_users():
-    return [{"username": "john"}, {"username": "alice"}]
 
-@user_route.get("/{id}")
-def read_user(id: int):
-    return {"id": id}
+@order_route.put("/{id}")
+def update_order(id: int, order: PurchaseOrder = Body(...)):
+    return order
 
-@user_route.put("/{id}")
-def update_user(id: int, user: User = Body(...)):
-    return user
+@order_route.delete("/{id}")
+def delete_order(id: int):
+    return {"Mensaje":"Eliminado"}
