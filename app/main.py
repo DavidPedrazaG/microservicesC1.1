@@ -15,6 +15,6 @@ async def root():
 
 app.include_router(user_route, prefix="/users", tags=["Usuarios"])
 app.include_router(event_route, prefix="/events", tags=["Eventos"])
-app.include_router(location_route, prefix="/locations", tags=["Localidad"])
-app.include_router(order_route, prefix="/orders", tags=["Order"])
-app.include_router(item_route, prefix="/orders", tags=["Order"])
+app.include_router(location_route, prefix="/locations", tags=["Localidades"])
+app.include_router(order_route, prefix="/orders", tags=["Ordenes"])
+app.include_router(item_route, prefix="/orders", tags=["Items"])
