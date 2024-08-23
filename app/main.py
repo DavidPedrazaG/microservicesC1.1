@@ -4,7 +4,7 @@ from .routes.user import user_route
 from .routes.order import order_route
 from .routes.location import location_route
 from .routes.event import event_route
-from .routes.item import item_route
+#from .routes.item import item_route
 
 app = FastAPI()
 
@@ -17,4 +17,4 @@ app.include_router(user_route, prefix="/users", tags=["Usuarios"])
 app.include_router(event_route, prefix="/events", tags=["Eventos"])
 app.include_router(location_route, prefix="/locations", tags=["Localidades"])
 app.include_router(order_route, prefix="/orders", tags=["Ordenes"])
-app.include_router(item_route, prefix="/items", tags=["Items"])
+# app.include_router(item_route, prefix="/items", tags=["Items"])
