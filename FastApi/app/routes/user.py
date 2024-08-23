@@ -1,24 +1,23 @@
 from fastapi import APIRouter, Body
-from ..models.user_schema import User
+from models.user_schema import User
+from database import UserModel
 
 user_route = APIRouter()
 
 @user_route.post("/")
 def create_users(user: User = Body(...)):
-    try:
-        return user
-    except Exception as e:
-        print(e)
-        return {"error:":str(e)}
+    UserModel.create(username=user.username, email=user.email, password = user.password)
+    return {"message": "User created successfully"}
     
 @user_route.get("/")
-def read_users():
-    return [{"username": "john"}, {"username": "alice"}]
+def get_users():
+    user = UserModel.select().where(UserModel.id > 0).dicts()
+    return list(user)
 
-@user_route.get("/{id}")
-def read_user(id: int):
-    return {"id": id}
-
-@user_route.put("/{id}")
-def update_user(id: int, user: User = Body(...)):
-    return user
+@user_route.get("/{user_id}")
+def get_user(user_id: int):
+    try:
+        user = UserModel.get(UserModel.id == user_id)
+        return user
+    except UserModel.DoesNotExist:
+        return {"error": "User not found"}
