@@ -37,9 +37,9 @@ def update_user(user_id: int, user: User = Body(...)):
     
 @user_route.delete("/{user_id}")
 def delete_user(user_id: int):
-    try:
-        UserModel.delete().where(UserModel.id == user_id).execute()
-        return {"Mensaje":"User delete successfully"}
-    except UserModel.IntegrityError:
+    rows_deleted = UserModel.delete().where(UserModel.id == user_id).execute()
+    if rows_deleted:
+        return {"message": "User deleted successfully"}
+    else:
         return {"error": "User not found"}
     
