@@ -7,8 +7,8 @@ order_route = APIRouter()
     
 @order_route.post("/")
 def create_orders(order: PurchaseOrder = Body(...)):
-    OrderModel.create(ordername=order.ordername, email=order.email, password = order.password)
-    return {"message": "order created successfully"}
+    OrderModel.create(order_code=order.order_code, user_id=order.user_id, total = order.total, order_date = order.date, state = order.state)
+    return {"message": "Order created successfully"}
     
 @order_route.get("/")
 def get_orders():
@@ -16,30 +16,47 @@ def get_orders():
     return list(order)
 
 @order_route.get("/{order_id}")
-def get_order(order_id: int):
+def get_order_by_id(order_id: int):
     try:
         order = OrderModel.get(OrderModel.id == order_id)
         return order
     except OrderModel.DoesNotExist:
-        return {"error": "order not found"}
+        return {"error": "Order not found"}
+
+@order_route.get("/{order_code}")
+def get_order_by_code(order_code: int):
+    try:
+        order = OrderModel.get(OrderModel.order_code == order_code)
+        return order
+    except OrderModel.DoesNotExist:
+        return {"error": "Order not found"}
     
 
 @order_route.put("/{order_id}")
 def update_order(order_id: int, order: PurchaseOrder = Body(...)):
     try:
         new_order = OrderModel.get(OrderModel.id == order_id)
-        new_order.ordername = order.ordername
-        new_order.email= order.email
-        new_order.password = order.password
+        new_order.user_id = order.user_id
+        new_order.total = order.total
+        new_order.order_date = order.date
+        new_order.state = order.state
         new_order.save()
-        return {"Mensaje":"order Update successfully"}
+        return {"Mensaje":"Order Update successfully"}
     except OrderModel.DoesNotExist:
-        return {"error": "order not found"}
+        return {"error": "Order not found"}
     
 @order_route.delete("/{order_id}")
-def delete_order(order_id: int):
+def delete_order_by_id(order_id: int):
     rows_deleted = OrderModel.delete().where(OrderModel.id == order_id).execute()
     if rows_deleted:
-        return {"message": "order deleted successfully"}
+        return {"message": "Order deleted successfully"}
     else:
-        return {"error": "order not found"}
+        return {"error": "Order not found"}
+
+@order_route.delete("/{order_id}")
+def delete_order_by_code(order_code: int):
+    rows_deleted = OrderModel.delete().where(OrderModel.order_code == order_code).execute()
+    if rows_deleted:
+        return {"message": "Order deleted successfully"}
+    else:
+        return {"error": "Order not found"}

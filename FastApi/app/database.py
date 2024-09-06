@@ -35,7 +35,7 @@ class OrderModel(Model):
 
 class LocationModel(Model):
     id = AutoField(primary_key = True)
-    name = CharField(max_length="15")
+    name = CharField(max_length=15)
     price = DecimalField(max_digits=10, decimal_places=2)
     max_capacity = IntegerField()
     available_seats = BooleanField()
