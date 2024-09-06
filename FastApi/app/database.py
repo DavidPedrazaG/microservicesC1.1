@@ -29,12 +29,20 @@ class OrderModel(Model):
     order_date = DateField()
     state = CharField(max_length=15)
 
+    class Meta:
+        database = database
+        table_name = "orders"
+
 class LocationModel(Model):
     id = AutoField(primary_key = True)
     name = CharField(max_length="15")
     price = DecimalField(max_digits=10, decimal_places=2)
     max_capacity = IntegerField()
     available_seats = BooleanField()
+
+    class Meta:
+        database = database
+        table_name = "locations"
 
 class EventModel(Model):
     id = AutoField(primary_key = True)
@@ -43,6 +51,10 @@ class EventModel(Model):
     city = CharField(max_length=50)
     description = TextField()
 
+    class Meta:
+        database = database
+        table_name = "events"
+
 class ItemModel(Model):
     id = AutoField(primary_key = True)
     event = ForeignKeyField(EventModel, related_name='events')
@@ -50,3 +62,6 @@ class ItemModel(Model):
     amount = IntegerField()
     unit_price = DecimalField(max_digits=10, decimal_places=2)
 
+    class Meta:
+        database = database
+        table_name = "items"
