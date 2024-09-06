@@ -21,3 +21,25 @@ def get_user(user_id: int):
         return user
     except UserModel.DoesNotExist:
         return {"error": "User not found"}
+    
+
+@user_route.put("/{user_id}")
+def update_user(user_id: int, user: User = Body(...)):
+    try:
+        new_user = UserModel.get(UserModel.id == user_id)
+        new_user.username = user.username
+        new_user.email= user.email
+        new_user.password = user.password
+        new_user.save()
+        return {"Mensaje":"User Update successfully"}
+    except UserModel.DoesNotExist:
+        return {"error": "User not found"}
+    
+@user_route.delete("/{user_id}")
+def delete_user(user_id: int):
+    try:
+        UserModel.delete().where(UserModel.id == user_id).execute()
+        return {"Mensaje":"User delete successfully"}
+    except UserModel.IntegrityError:
+        return {"error": "User not found"}
+    
