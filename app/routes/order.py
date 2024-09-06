@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Body
-from ..models.order_schema import PurchaseOrder
+from models.order_schema import PurchaseOrder
 
 order_route = APIRouter()
 
@@ -15,15 +15,15 @@ def read_order(id: str, order_code: str):
 @order_route.post("/")
 def create_orders(order: PurchaseOrder = Body(...)):
     try:
-        return order
+        return {"La orden fue creada: ": {f"{order}"}}
     except Exception as e:
         print(e)
         return {"error:":str(e)}
 
 @order_route.put("/{id}")
 def update_order(id: int, order: PurchaseOrder = Body(...)):
-    return order
+    return {"Mensaje":f"{id} fue modificado"}
 
 @order_route.delete("/{id}")
 def delete_order(id: int):
-    return {"Mensaje":"Eliminado"}
+    return {"Mensaje":"{id} fue eliminado"}

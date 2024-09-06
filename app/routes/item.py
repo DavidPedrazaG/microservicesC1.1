@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Body
-from ..models.item_schema import Item
+from models.item_schema import Item
 
 item_route = APIRouter()
 
@@ -10,20 +10,20 @@ def read_items():
 
 @item_route.get("/{id}")
 def read_item(id: str):
-    return {"id": id}
+    return {"El id es: ": id}
 
 @item_route.post("/")
 def create_items(item: Item = Body(...)):
     try:
-        return item
+        return {"El item fue creado: ": {f"{item}"}}
     except Exception as e:
         print(e)
         return {"error:":str(e)}
 
 @item_route.put("/{id}")
 def update_item(id: int, item: Item = Body(...)):
-    return item
+    return {"Mensaje":f"{id} fue modificado"}
 
 @item_route.delete("/{id}")
 def delete_item(id: int):
-    return {"Mensaje":"Eliminado"}
+    return {"Mensaje":"{id} fue eliminado"}

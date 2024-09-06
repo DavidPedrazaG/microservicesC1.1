@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Body
-from ..models.event_schema import Event
+from models.event_schema import Event
 
 event_route = APIRouter()
 
