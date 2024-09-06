@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Body
-from ..models.order_schema import PurchaseOrder
+from models.order_schema import PurchaseOrder
 
 order_route = APIRouter()
 

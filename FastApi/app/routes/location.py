@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Body
-from ..models.location_schema import Location
+from models.location_schema import Location
 
 location_route = APIRouter()
 

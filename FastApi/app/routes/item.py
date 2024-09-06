@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Body
-from ..models.item_schema import Item
+from models.item_schema import Item
 
 item_route = APIRouter()
 
