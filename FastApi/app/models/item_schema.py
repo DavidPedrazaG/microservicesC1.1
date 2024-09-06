@@ -3,7 +3,7 @@ from models.event_schema import Event
 from models.location_schema import Location
 
 class Item(BaseModel):
-    id:str
+    id:int
     event:Event
     location:Location
     amount:int

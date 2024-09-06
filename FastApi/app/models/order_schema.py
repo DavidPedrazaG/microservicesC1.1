@@ -10,7 +10,7 @@ class Estado(Enum):
     Cancelado = "Cancelado"
 
 class PurchaseOrder(BaseModel):
-    id: str
+    id: int
     order_code: str
     user_id: str
     items: List[item_schema.Item]

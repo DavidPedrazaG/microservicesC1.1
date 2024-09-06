@@ -21,3 +21,32 @@ class UserModel(Model):
         database = database
         table_name = "users"
 
+class OrderModel(Model):
+    id = AutoField(primary_key = True)
+    order_code = CharField(unique=True, max_length=30)
+    user_id = ForeignKeyField(UserModel, related_name='orders')
+    total = DecimalField(max_digits=10, decimal_places=2)
+    order_date = DateField()
+    state = CharField(max_length=15)
+
+class LocationModel(Model):
+    id = AutoField(primary_key = True)
+    name = CharField(max_length="15")
+    price = DecimalField(max_digits=10, decimal_places=2)
+    max_capacity = IntegerField()
+    available_seats = BooleanField()
+
+class EventModel(Model):
+    id = AutoField(primary_key = True)
+    name = CharField(max_length=50)
+    address = CharField(max_length=150)
+    city = CharField(max_length=50)
+    description = TextField()
+
+class ItemModel(Model):
+    id = AutoField(primary_key = True)
+    event = ForeignKeyField(EventModel, related_name='events')
+    location = ForeignKeyField(LocationModel, related_name='locations')
+    amount = IntegerField()
+    unit_price = DecimalField(max_digits=10, decimal_places=2)
+
