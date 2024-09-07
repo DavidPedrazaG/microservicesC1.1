@@ -7,7 +7,7 @@ item_route = APIRouter()
     
 @item_route.post("/")
 def create_items(item: Item = Body(...)):
-    ItemModel.create(itemname=item.name, email=item.email, city = item.city)
+    ItemModel.create(name=item.name, event =item.event, location = item.location , unit_price = item.unit_price , amount = item.amount )
     return {"message": "Item created successfully"}
     
 @item_route.get("/")
