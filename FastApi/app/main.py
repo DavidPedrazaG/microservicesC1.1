@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from database import database as connection
+from database import *
 from routes.user import user_route
 from routes.event import event_route
 from routes.item import item_route
@@ -12,6 +13,7 @@ async def lifespan(app: FastAPI):
 
     if connection.is_closed():
         connection.connect()
+        connection.create_tables([UserModel, OrderModel, ItemModel, LocationModel, EventModel])
 
     try:
         yield
