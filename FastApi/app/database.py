@@ -57,8 +57,8 @@ class EventModel(Model):
 
 class ItemModel(Model):
     id = AutoField(primary_key = True)
-    event = ForeignKeyField(EventModel, related_name='events')
-    location = ForeignKeyField(LocationModel, related_name='locations')
+    event_id = ForeignKeyField(EventModel, related_name='items')
+    location_id = ForeignKeyField(LocationModel, related_name='items')
     amount = IntegerField()
     unit_price = DecimalField(max_digits=10, decimal_places=2)
 

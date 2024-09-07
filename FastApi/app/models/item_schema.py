@@ -4,7 +4,7 @@ from models.location_schema import Location
 
 class Item(BaseModel):
     id:int
-    event:Event
-    location:Location
+    event_id:str
+    location_id:str
     amount:int
     unit_price:float

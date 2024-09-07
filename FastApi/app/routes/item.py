@@ -7,7 +7,7 @@ item_route = APIRouter()
     
 @item_route.post("/")
 def create_items(item: Item = Body(...)):
-    ItemModel.create(name=item.name, event =item.event, location = item.location , unit_price = item.unit_price , amount = item.amount )
+    ItemModel.create(event_id=item.event_id , location_id=item.location_id , amount=item.amount , unit_price=item.unit_price )
     return {"message": "Item created successfully"}
     
 @item_route.get("/")
@@ -22,16 +22,16 @@ def get_item(item_id: int):
         return item
     except ItemModel.DoesNotExist:
         return {"error": "Item not found"}
-    
+
 
 @item_route.put("/{item_id}")
 def update_item(item_id: int, item: Item = Body(...)):
     try:
         new_item = ItemModel.get(ItemModel.id == item_id)
-        new_item.evente= item.event
-        new_item.location = item.location
+        new_item.event_id = item.event_id
+        new_item.location_id = item.location_id
         new_item.amount = item.amount
-        new_item.unit_price = item.unit_price
+        new_item.unit_prive = item.unit_price
         new_item.save()
         return {"Mensaje":"Item Update successfully"}
     except ItemModel.DoesNotExist:
@@ -44,4 +44,3 @@ def delete_item(item_id: int):
         return {"message": "Item deleted successfully"}
     else:
         return {"error": "Item not found"}
-    
