@@ -21,16 +21,7 @@ def get_order_by_id(order_id: int):
         order = OrderModel.get(OrderModel.id == order_id)
         return order
     except OrderModel.DoesNotExist:
-        return {"error": "Order not found"}
-
-@order_route.get("/{order_code}")
-def get_order_by_code(order_code: int):
-    try:
-        order = OrderModel.get(OrderModel.order_code == order_code)
-        return order
-    except OrderModel.DoesNotExist:
-        return {"error": "Order not found"}
-    
+        return {"error": "Order not found"} 
 
 @order_route.put("/{order_id}")
 def update_order(order_id: int, order: PurchaseOrder = Body(...)):
@@ -45,17 +36,9 @@ def update_order(order_id: int, order: PurchaseOrder = Body(...)):
     except OrderModel.DoesNotExist:
         return {"error": "Order not found"}
     
-@order_route.delete("/{order_id}")
+@order_route.delete("/")
 def delete_order_by_id(order_id: int):
     rows_deleted = OrderModel.delete().where(OrderModel.id == order_id).execute()
-    if rows_deleted:
-        return {"message": "Order deleted successfully"}
-    else:
-        return {"error": "Order not found"}
-
-@order_route.delete("/{order_id}")
-def delete_order_by_code(order_code: int):
-    rows_deleted = OrderModel.delete().where(OrderModel.order_code == order_code).execute()
     if rows_deleted:
         return {"message": "Order deleted successfully"}
     else:
