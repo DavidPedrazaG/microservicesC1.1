@@ -6,7 +6,7 @@ event_route = APIRouter()
 
 @event_route.post("/")
 def create_events(event: Event = Body(...)):
-    EventModel.create(Eventname=event.Eventname, email=event.email, city = event.city)
+    EventModel.create(name=event.name, address=event.address, city = event.city , description = event.description )
     return {"message": "Event created successfully"}
     
 @event_route.get("/")
