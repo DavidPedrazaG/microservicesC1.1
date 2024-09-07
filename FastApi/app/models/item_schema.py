@@ -1,10 +1,10 @@
 from pydantic import BaseModel
-from event_schema import Event
-from location_schema import Location
+from models.event_schema import Event
+from models.location_schema import Location
 
 class Item(BaseModel):
-    id:str
-    event:Event
-    location:Location
+    id:int
+    event_id:str
+    location_id:str
     amount:int
     unit_price:float

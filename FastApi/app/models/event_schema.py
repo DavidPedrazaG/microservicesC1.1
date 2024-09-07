@@ -1,9 +1,8 @@
 from pydantic import BaseModel
 
 class Event(BaseModel):
-    id : str
+    id : int
     name : str 
     address : str
     city : str
     description : str
-    
